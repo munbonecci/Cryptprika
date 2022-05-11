@@ -1,6 +1,7 @@
 # Cryptprika
 
-Android crypto app
+Android crypto app This app was created to learn more about Clean architecture, the use of coil for
+image consumption, among other things.
 
 ## Installation
 
