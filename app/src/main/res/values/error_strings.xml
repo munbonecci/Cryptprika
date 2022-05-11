@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="connection_error">No internet connection.</string>
+    <string name="generic_error">"We are experiencing difficulties with the system. Please try again later."</string>
+    <string name="unexpected_error_message">An unexpected error occurred.</string>
+</resources>
