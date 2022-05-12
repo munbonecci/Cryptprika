@@ -1,4 +1,4 @@
-package com.munbonecci.cryptprika.ui.dashboard
+package com.munbonecci.cryptprika.dashboard
 
 import android.os.Bundle
 import android.view.LayoutInflater
