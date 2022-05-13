@@ -63,7 +63,13 @@ class HomeFragment : Fragment() {
         homeViewModel.getCoins()
         homeViewModel.getCoinList.observe(viewLifecycleOwner) { state ->
             state.coins.let {
+                binding.loadingAnimationView.visibility = View.GONE
+                binding.paprikaRecycler.visibility = View.VISIBLE
                 paprikaListAdapter.submitList(it)
+            }
+            state.isLoading.let { isLoading ->
+                if (isLoading) binding.loadingAnimationView.visibility = View.VISIBLE
+                else binding.loadingAnimationView.visibility = View.GONE
             }
         }
     }
