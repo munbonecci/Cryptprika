@@ -32,19 +32,22 @@ class PaprikaDetailViewModel @Inject constructor(
         getPaprikaDetailUseCase(coinId).onEach { result ->
             when (result) {
                 is Resource.Success -> {
-                    getCoinDetail.value = ViewState(coin = result.value)
+                    getCoinDetail.value = ViewState(coin = result.value, isLoading = false)
                 }
                 is Resource.Error -> {
                     getCoinDetail.value = ViewState(
                         error = Error(
                             resourceId = R.string.unexpected_error_message,
                             message = result.message
-                        )
+                        ), isLoading = false
                     )
                 }
                 is Resource.NetworkError -> {
                     getCoinDetail.value =
-                        ViewState(error = Error(resourceId = R.string.connection_error))
+                        ViewState(
+                            error = Error(resourceId = R.string.connection_error),
+                            isLoading = false
+                        )
                 }
             }
         }.launchIn(viewModelScope)

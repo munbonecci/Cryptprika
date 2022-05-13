@@ -58,6 +58,10 @@ class PaprikaDetailFragment : Fragment() {
             state.error?.let { error ->
                 setError(error)
             }
+            state.isLoading.let { isLoading ->
+                if (isLoading) binding.loadingScreenAnimationView.visibility = View.VISIBLE
+                else binding.loadingScreenAnimationView.visibility = View.GONE
+            }
         }
     }
 
