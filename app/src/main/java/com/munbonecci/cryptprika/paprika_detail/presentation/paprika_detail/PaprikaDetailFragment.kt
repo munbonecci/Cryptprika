@@ -2,6 +2,7 @@ package com.munbonecci.cryptprika.paprika_detail.presentation.paprika_detail
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -87,9 +88,9 @@ class PaprikaDetailFragment : Fragment() {
 
     }
 
-    private fun getTickerDetails(){
+    private fun getTickerDetails() {
         paprikaDetailViewModel.fetchTickerDetail(coinId)
-        paprikaDetailViewModel.getTickerDetail.observe(viewLifecycleOwner){ state ->
+        paprikaDetailViewModel.getTickerDetail.observe(viewLifecycleOwner) { state ->
             state.ticker?.let { ticker ->
                 setTickerDetail(ticker)
             }
@@ -100,11 +101,12 @@ class PaprikaDetailFragment : Fragment() {
     }
 
     private fun setTickerDetail(ticker: Ticker) {
-
+        binding.includedTickerDetailLayout.root.visibility = View.VISIBLE
     }
 
     private fun setTickerError(error: Error) {
-
+        Log.d("ticker_error: ", error.message ?: "")
+        binding.includedTickerDetailLayout.root.visibility = View.GONE
     }
 
     override fun onDestroyView() {
