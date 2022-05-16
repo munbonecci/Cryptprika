@@ -31,19 +31,23 @@ class HomeViewModel @Inject constructor(
         getPaprikaListUseCase().onEach { result ->
             when (result) {
                 is Resource.Success -> {
-                    getCoinList.value = ViewState(coins = result.value ?: emptyList())
+                    getCoinList.value =
+                        ViewState(coins = result.value ?: emptyList(), isLoading = false)
                 }
                 is Resource.Error -> {
                     getCoinList.value = ViewState(
                         error = Error(
                             resourceId = R.string.unexpected_error_message,
                             message = result.message
-                        )
+                        ), isLoading = false
                     )
                 }
                 is Resource.NetworkError -> {
                     getCoinList.value =
-                        ViewState(error = Error(resourceId = R.string.connection_error))
+                        ViewState(
+                            error = Error(resourceId = R.string.connection_error),
+                            isLoading = false
+                        )
                 }
             }
         }.launchIn(viewModelScope)

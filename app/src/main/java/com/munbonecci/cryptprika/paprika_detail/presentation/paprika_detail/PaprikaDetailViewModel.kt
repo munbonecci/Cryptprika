@@ -1,5 +1,6 @@
 package com.munbonecci.cryptprika.paprika_detail.presentation.paprika_detail
 
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.*
@@ -16,7 +17,6 @@ import javax.inject.Inject
 @HiltViewModel
 class PaprikaDetailViewModel @Inject constructor(
     private val getPaprikaDetailUseCase: GetPaprikaDetailUseCase,
-    savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
 
     data class ViewState(
@@ -25,32 +25,29 @@ class PaprikaDetailViewModel @Inject constructor(
         val error: Error? = null,
     )
 
-    private val _state = mutableStateOf(ViewState())
-    val getCoinDetail: State<ViewState> = _state
+    val getCoinDetail = MutableLiveData(ViewState())
 
-    init {
-        savedStateHandle.get<String>("coinId")?.let {
-            getCoinDetail(it)
-        }
-    }
-
-    private fun getCoinDetail(coinId: String) {
-        _state.value = ViewState(isLoading = true)
+    fun fetchCoinDetail(coinId: String) {
+        getCoinDetail.value = ViewState(isLoading = true)
         getPaprikaDetailUseCase(coinId).onEach { result ->
             when (result) {
                 is Resource.Success -> {
-                    _state.value = ViewState(coin = result.value)
+                    getCoinDetail.value = ViewState(coin = result.value, isLoading = false)
                 }
                 is Resource.Error -> {
-                    _state.value = ViewState(
+                    getCoinDetail.value = ViewState(
                         error = Error(
                             resourceId = R.string.unexpected_error_message,
                             message = result.message
-                        )
+                        ), isLoading = false
                     )
                 }
                 is Resource.NetworkError -> {
-                    _state.value = ViewState(error = Error(resourceId = R.string.connection_error))
+                    getCoinDetail.value =
+                        ViewState(
+                            error = Error(resourceId = R.string.connection_error),
+                            isLoading = false
+                        )
                 }
             }
         }.launchIn(viewModelScope)
