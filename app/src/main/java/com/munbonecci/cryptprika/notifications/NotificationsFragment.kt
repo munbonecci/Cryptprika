@@ -1,4 +1,4 @@
-package com.munbonecci.cryptprika.ui.notifications
+package com.munbonecci.cryptprika.notifications
 
 import android.os.Bundle
 import android.view.LayoutInflater

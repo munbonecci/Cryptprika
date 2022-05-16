@@ -7,10 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.munbonecci.cryptprika.R
 import com.munbonecci.cryptprika.databinding.FragmentHomeBinding
 import com.munbonecci.cryptprika.paprika_list.domain.model.Coin
 import com.munbonecci.cryptprika.paprika_list.presentation.adapter.PaprikaListAdapter
@@ -42,11 +43,15 @@ class HomeFragment : Fragment() {
     }
 
     private fun initRecyclerView() {
-        paprikaListAdapter = PaprikaListAdapter(clickListener = (object : PaprikaListAdapter.OnClickListener{
-            override fun onItemClick(coin: Coin, position: Int) {
-                Log.d("item pressed: $position ", coin.name)
-            }
-        }))
+        paprikaListAdapter =
+            PaprikaListAdapter(clickListener = (object : PaprikaListAdapter.OnClickListener {
+                override fun onItemClick(coin: Coin, position: Int) {
+                    Log.d("item pressed: $position ", coin.name)
+                    val bundle = Bundle().apply { putString("coin_id", coin.id) }
+                    findNavController().navigate(R.id.action_home_to_detail, bundle)
+                }
+            }))
+
         binding.paprikaRecycler.apply {
             adapter = paprikaListAdapter
             layoutManager = LinearLayoutManager(this.context, RecyclerView.VERTICAL, false)
@@ -58,7 +63,13 @@ class HomeFragment : Fragment() {
         homeViewModel.getCoins()
         homeViewModel.getCoinList.observe(viewLifecycleOwner) { state ->
             state.coins.let {
+                binding.loadingAnimationView.visibility = View.GONE
+                binding.paprikaRecycler.visibility = View.VISIBLE
                 paprikaListAdapter.submitList(it)
+            }
+            state.isLoading.let { isLoading ->
+                if (isLoading) binding.loadingAnimationView.visibility = View.VISIBLE
+                else binding.loadingAnimationView.visibility = View.GONE
             }
         }
     }
