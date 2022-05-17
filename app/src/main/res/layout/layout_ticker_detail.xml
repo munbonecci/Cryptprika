@@ -8,7 +8,7 @@
     android:orientation="vertical">
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/coinCardView"
+        android:id="@+id/tickerCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -23,14 +23,13 @@
         app:layout_constraintTop_toBottomOf="@+id/periodText">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/coinContainer"
+            android:id="@+id/tickerContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
             android:visibility="visible">
 
             <TextView
-                android:id="@+id/coinNameText"
+                android:id="@+id/tickerUsdPriceText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -40,12 +39,12 @@
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/coinImageView"
-                app:layout_constraintTop_toTopOf="@+id/coinImageView"
+                app:layout_constraintStart_toEndOf="@+id/tickerImageView"
+                app:layout_constraintTop_toTopOf="@+id/tickerImageView"
                 tools:text="Coin" />
 
             <ImageView
-                android:id="@+id/coinImageView"
+                android:id="@+id/tickerImageView"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginStart="16dp"
@@ -54,17 +53,50 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/coinChartView"
+            <TextView
+                android:id="@+id/tickerBTCPriceText"
                 android:layout_width="0dp"
-                android:layout_height="70dp"
-                android:layout_marginTop="24dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/tickerUsdPriceText"
+                app:layout_constraintStart_toStartOf="@+id/tickerUsdPriceText"
+                app:layout_constraintTop_toBottomOf="@+id/tickerUsdPriceText" />
+
+            <TextView
+                android:id="@+id/percentChange1hText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/tickerBTCPriceText"
+                app:layout_constraintStart_toStartOf="@+id/tickerBTCPriceText"
+                app:layout_constraintTop_toBottomOf="@+id/tickerBTCPriceText" />
+
+            <TextView
+                android:id="@+id/percentChange24hText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/percentChange1hText"
+                app:layout_constraintStart_toStartOf="@+id/percentChange1hText"
+                app:layout_constraintTop_toBottomOf="@+id/percentChange1hText" />
+
+            <TextView
+                android:id="@+id/percentChange7DText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
                 android:layout_marginBottom="16dp"
-                android:contentDescription="@string/app_name"
+                android:textColor="@color/black"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/coinNameText"
-                app:layout_constraintStart_toStartOf="@+id/coinNameText"
-                app:layout_constraintTop_toBottomOf="@+id/coinNameText" />
+                app:layout_constraintEnd_toEndOf="@+id/percentChange24hText"
+                app:layout_constraintStart_toStartOf="@+id/percentChange24hText"
+                app:layout_constraintTop_toBottomOf="@+id/percentChange24hText" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

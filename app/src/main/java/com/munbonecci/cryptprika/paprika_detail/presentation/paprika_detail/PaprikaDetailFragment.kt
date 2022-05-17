@@ -16,6 +16,7 @@ import com.munbonecci.cryptprika.common.Constants.CHART_BASE_URL
 import com.munbonecci.cryptprika.common.Constants.COIN_LOGO_BASE_URL
 import com.munbonecci.cryptprika.common.Constants.LOGO_PNG
 import com.munbonecci.cryptprika.common.Error
+import com.munbonecci.cryptprika.common.formatAsCurrency
 import com.munbonecci.cryptprika.databinding.FragmentPaprikaDetailBinding
 import com.munbonecci.cryptprika.paprika_detail.domain.model.CoinDetail
 import com.munbonecci.cryptprika.ticker_detail.domain.model.Ticker
@@ -100,8 +101,32 @@ class PaprikaDetailFragment : Fragment() {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun setTickerDetail(ticker: Ticker) {
         binding.includedTickerDetailLayout.root.visibility = View.VISIBLE
+        with(binding.includedTickerDetailLayout) {
+            tickerUsdPriceText.text = ticker.priceUsd.formatAsCurrency()
+            tickerBTCPriceText.text = "BTC: ${ticker.priceBtc}"
+            tickerImageView.load("${COIN_LOGO_BASE_URL}${ticker.id}${LOGO_PNG}")
+            percentChange1hText.text = String.format(
+                requireActivity().getString(
+                    R.string.percentage_change_1h,
+                    ticker.percentChange1h
+                )
+            )
+            percentChange24hText.text =String.format(
+                requireActivity().getString(
+                    R.string.percentage_change_24h,
+                    ticker.percentChange24h
+                )
+            )
+            percentChange7DText.text =String.format(
+                requireActivity().getString(
+                    R.string.percentage_change_7d,
+                    ticker.percentChange7d
+                )
+            )
+        }
     }
 
     private fun setTickerError(error: Error) {
