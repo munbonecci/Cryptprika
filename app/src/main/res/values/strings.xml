@@ -4,4 +4,7 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_paprika_detail">Detail</string>
+    <string name="percentage_change_1h">1h: %1$s</string>
+    <string name="percentage_change_24h">24h: %1$s</string>
+    <string name="percentage_change_7d">7d: %1$s</string>
 </resources>

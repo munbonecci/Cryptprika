@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorMainBackground"
+    android:orientation="vertical">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/tickerCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:visibility="visible"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="4dp"
+        app:layout_constraintEnd_toEndOf="@+id/periodTextView"
+        app:layout_constraintStart_toStartOf="@+id/periodText"
+        app:layout_constraintTop_toBottomOf="@+id/periodText">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/tickerContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="visible">
+
+            <TextView
+                android:id="@+id/tickerUsdPriceText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:textAlignment="textStart"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tickerImageView"
+                app:layout_constraintTop_toTopOf="@+id/tickerImageView"
+                tools:text="Coin" />
+
+            <ImageView
+                android:id="@+id/tickerImageView"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:contentDescription="@string/app_name"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tickerBTCPriceText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/tickerUsdPriceText"
+                app:layout_constraintStart_toStartOf="@+id/tickerUsdPriceText"
+                app:layout_constraintTop_toBottomOf="@+id/tickerUsdPriceText" />
+
+            <TextView
+                android:id="@+id/percentChange1hText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/tickerBTCPriceText"
+                app:layout_constraintStart_toStartOf="@+id/tickerBTCPriceText"
+                app:layout_constraintTop_toBottomOf="@+id/tickerBTCPriceText" />
+
+            <TextView
+                android:id="@+id/percentChange24hText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/percentChange1hText"
+                app:layout_constraintStart_toStartOf="@+id/percentChange1hText"
+                app:layout_constraintTop_toBottomOf="@+id/percentChange1hText" />
+
+            <TextView
+                android:id="@+id/percentChange7DText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="16dp"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/percentChange24hText"
+                app:layout_constraintStart_toStartOf="@+id/percentChange24hText"
+                app:layout_constraintTop_toBottomOf="@+id/percentChange24hText" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>

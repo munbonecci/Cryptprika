@@ -2,6 +2,7 @@ package com.munbonecci.cryptprika.paprika_detail.presentation.paprika_detail
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,8 +16,10 @@ import com.munbonecci.cryptprika.common.Constants.CHART_BASE_URL
 import com.munbonecci.cryptprika.common.Constants.COIN_LOGO_BASE_URL
 import com.munbonecci.cryptprika.common.Constants.LOGO_PNG
 import com.munbonecci.cryptprika.common.Error
+import com.munbonecci.cryptprika.common.formatAsCurrency
 import com.munbonecci.cryptprika.databinding.FragmentPaprikaDetailBinding
 import com.munbonecci.cryptprika.paprika_detail.domain.model.CoinDetail
+import com.munbonecci.cryptprika.ticker_detail.domain.model.Ticker
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.WithFragmentBindings
 
@@ -29,6 +32,8 @@ class PaprikaDetailFragment : Fragment() {
     private var _binding: FragmentPaprikaDetailBinding? = null
     private val binding get() = _binding!!
 
+    var coinId = ""
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -40,23 +45,21 @@ class PaprikaDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getCoinDetails()
-    }
-
-    private fun getCoinDetails() {
-        var coinId = ""
-
         arguments?.let {
             coinId = it.getString("coin_id", "")
         }
+        getCoinDetails()
+        getTickerDetails()
+    }
 
+    private fun getCoinDetails() {
         paprikaDetailViewModel.fetchCoinDetail(coinId)
         paprikaDetailViewModel.getCoinDetail.observe(viewLifecycleOwner) { state ->
             state.coin?.let { coin ->
                 setCoinDetail(coin)
             }
             state.error?.let { error ->
-                setError(error)
+                setCoinError(error)
             }
             state.isLoading.let { isLoading ->
                 if (isLoading) binding.loadingScreenAnimationView.visibility = View.VISIBLE
@@ -82,8 +85,53 @@ class PaprikaDetailFragment : Fragment() {
         binding.coinStatusText.setTextColor(ContextCompat.getColor(requireActivity(), stateColor))
     }
 
-    private fun setError(error: Error) {
+    private fun setCoinError(error: Error) {
 
+    }
+
+    private fun getTickerDetails() {
+        paprikaDetailViewModel.fetchTickerDetail(coinId)
+        paprikaDetailViewModel.getTickerDetail.observe(viewLifecycleOwner) { state ->
+            state.ticker?.let { ticker ->
+                setTickerDetail(ticker)
+            }
+            state.error?.let { error ->
+                setTickerError(error)
+            }
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun setTickerDetail(ticker: Ticker) {
+        binding.includedTickerDetailLayout.root.visibility = View.VISIBLE
+        with(binding.includedTickerDetailLayout) {
+            tickerUsdPriceText.text = ticker.priceUsd.formatAsCurrency()
+            tickerBTCPriceText.text = "BTC: ${ticker.priceBtc}"
+            tickerImageView.load("${COIN_LOGO_BASE_URL}${ticker.id}${LOGO_PNG}")
+            percentChange1hText.text = String.format(
+                requireActivity().getString(
+                    R.string.percentage_change_1h,
+                    ticker.percentChange1h
+                )
+            )
+            percentChange24hText.text =String.format(
+                requireActivity().getString(
+                    R.string.percentage_change_24h,
+                    ticker.percentChange24h
+                )
+            )
+            percentChange7DText.text =String.format(
+                requireActivity().getString(
+                    R.string.percentage_change_7d,
+                    ticker.percentChange7d
+                )
+            )
+        }
+    }
+
+    private fun setTickerError(error: Error) {
+        Log.d("ticker_error: ", error.message ?: "")
+        binding.includedTickerDetailLayout.root.visibility = View.GONE
     }
 
     override fun onDestroyView() {
