@@ -24,10 +24,12 @@ This project is maintained by:
 
 ## Built with
 
-*Kotlin
+*Kotlin [Kotlin](https://kotlinlang.org)
 *Clean Arch
 *Coil
 *Dagger hilt
-*Coroutines + flow
+*Flow
+*Asynchronous processing using [Coroutines](https://kotlin.github.io/kotlinx.coroutines/)
 *Retrofit
 *CoinPaprika [CoinPaprika](https://api.coinpaprika.com/)
+*Paging [Paging3](https://developer.android.com/topic/libraries/architecture/paging/v3-overview)
