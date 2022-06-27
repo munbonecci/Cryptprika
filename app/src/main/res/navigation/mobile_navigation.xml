@@ -23,7 +23,7 @@
 
     <fragment
         android:id="@+id/navigation_favorites"
-        android:name="com.munbonecci.cryptprika.favorites.FavoritesFragment"
+        android:name="com.munbonecci.cryptprika.favorites.presentation.FavoritesFragment"
         android:label="@string/title_favorites"
         tools:layout="@layout/fragment_favorites">
 

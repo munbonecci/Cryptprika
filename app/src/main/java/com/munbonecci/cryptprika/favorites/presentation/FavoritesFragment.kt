@@ -1,4 +1,4 @@
-package com.munbonecci.cryptprika.favorites
+package com.munbonecci.cryptprika.favorites.presentation
 
 import android.os.Bundle
 import android.view.LayoutInflater
