@@ -35,6 +35,12 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    kapt {
+        generateStubs = true
+        arguments {
+            arg("room.schemaLocation", "$projectDir/schemas")
+        }
+    }
     kotlinOptions {
         jvmTarget = '1.8'
     }
@@ -89,4 +95,13 @@ dependencies {
 
     //Lottie
     implementation 'com.airbnb.android:lottie:5.0.3'
+
+    //Room database
+    def room_version = "2.4.2"
+    implementation "androidx.room:room-runtime:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
+
+    //Cipher
+    implementation "net.zetetic:android-database-sqlcipher:4.4.3"
 }
