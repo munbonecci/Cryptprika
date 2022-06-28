@@ -43,7 +43,7 @@ object DataBaseManager {
 
     private val MIGRATION_1_2: Migration = object : Migration(1, 2) {
         override fun migrate(database: SupportSQLiteDatabase) {
-            database.execSQL("CREATE TABLE IF NOT EXISTS `Favorites` (`uuid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `id` TEXT NOT NULL, `name` TEXT NOT NULL, `image` TEXT NOT NULL, `creationDate` TEXT NOT NULL , `modificationDate` TEXT NOT NULL,`isFavoriteAdded` BOOLEAN NOT NULL )")
+            database.execSQL("CREATE TABLE IF NOT EXISTS `Favorite` (`uuid` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `id` TEXT NOT NULL, `name` TEXT NOT NULL, `image` TEXT NOT NULL, `creationDate` TEXT NOT NULL , `modificationDate` TEXT NOT NULL,`isFavoriteAdded` BOOLEAN NOT NULL )")
         }
     }
 

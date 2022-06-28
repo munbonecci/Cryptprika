@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.munbonecci.cryptprika.R
 import com.munbonecci.cryptprika.common.Error
 import com.munbonecci.cryptprika.common.Resource
-import com.munbonecci.cryptprika.database.favorites.Favorites
+import com.munbonecci.cryptprika.database.favorites.Favorite
 import com.munbonecci.cryptprika.favorites.domain.model.DeleteFavoriteFromDBState
 import com.munbonecci.cryptprika.favorites.domain.model.GetFavoriteFromDBState
 import com.munbonecci.cryptprika.favorites.domain.model.GetFavoritesFromDBState
@@ -58,8 +58,7 @@ class FavoritesViewModel @Inject constructor(
                     _getFavoriteDbLiveData.postValue(
                         GetFavoriteFromDBState(
                             isLoading = false,
-                            getFavorite = result.value?.getOrNull(id.toIntOrNull() ?: 0)
-                                ?: Favorites()
+                            getFavorite = result.value ?: Favorite()
                         )
                     )
                 }
@@ -136,7 +135,7 @@ class FavoritesViewModel @Inject constructor(
         }.launchIn(viewModelScope)
     }
 
-    fun insertFavoriteIntoDB(favorite: Favorites) {
+    fun insertFavoriteIntoDB(favorite: Favorite) {
         _insertFavoriteIntoDbLiveData.value = InsertFavoriteIntoDBState(isLoading = true)
         insertFavoriteIntoDBUseCase.invoke(favorite).onEach { result ->
             when (result) {

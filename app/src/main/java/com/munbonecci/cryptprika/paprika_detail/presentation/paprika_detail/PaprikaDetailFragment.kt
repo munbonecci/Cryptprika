@@ -142,16 +142,16 @@ class PaprikaDetailFragment : Fragment() {
         favoritesViewModel.getFavoriteDb(coinId)
         favoritesViewModel.getFavoriteDbLiveData.observe(viewLifecycleOwner) { state ->
             state.getFavorite?.let { favorite ->
-                setFavoriteIcon(favorite.isFavoriteAdded)
+                setFavoriteTextAndIcon(favorite.isFavoriteAdded)
             }
             state.error?.let { error ->
-                setFavoriteIcon(false)
+                setFavoriteTextAndIcon(false)
                 Log.e("Error: ", error.message ?: "")
             }
         }
     }
 
-    private fun setFavoriteIcon(favoriteAdded: Boolean) {
+    private fun setFavoriteTextAndIcon(favoriteAdded: Boolean) {
         val colorInt = ContextCompat.getColor(requireActivity(), R.color.purple_500)
         val colorStateList = ColorStateList.valueOf(colorInt)
         if (favoriteAdded) {
@@ -161,6 +161,7 @@ class PaprikaDetailFragment : Fragment() {
                 0,
                 0
             )
+            binding.favoriteButton.text = requireActivity().getString(R.string.remove_favorite_text)
         } else {
             binding.favoriteButton.setCompoundDrawablesWithIntrinsicBounds(
                 0,
@@ -168,6 +169,7 @@ class PaprikaDetailFragment : Fragment() {
                 0,
                 0
             )
+            binding.favoriteButton.text = requireActivity().getString(R.string.add_favorite_text)
         }
         binding.favoriteButton.iconTint = colorStateList
     }

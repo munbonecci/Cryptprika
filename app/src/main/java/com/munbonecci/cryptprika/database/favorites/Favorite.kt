@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "favorites")
-data class Favorites(
+data class Favorite(
                      var id: String = "",
                      var image: String = "",
                      var name: String = "",

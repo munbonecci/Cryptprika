@@ -7,13 +7,13 @@ import androidx.room.Query
 @Dao
 interface FavoritesDao {
     @Insert
-    suspend fun insertFavorites(favorites: Favorites): Long
+    suspend fun insertFavorites(favorite: Favorite): Long
 
     @Query("SELECT * FROM favorites")
-    suspend fun getFavorites(): List<Favorites>
+    suspend fun getFavorites(): List<Favorite>
 
     @Query("SELECT * FROM favorites WHERE id = :idFavorite")
-    suspend fun getFavoriteById(idFavorite: String): List<Favorites>
+    suspend fun getFavoriteById(idFavorite: String): Favorite
 
     @Query("DELETE FROM favorites WHERE uuid = :id")
     suspend fun deleteFavorite(id: Int): Int

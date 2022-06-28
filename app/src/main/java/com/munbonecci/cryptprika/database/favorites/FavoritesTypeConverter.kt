@@ -7,14 +7,14 @@ import java.lang.reflect.Type
 
 class FavoritesTypeConverter {
     @TypeConverter
-    fun stringToListFavoritesEntry(catalog: String): ArrayList<Favorites> {
-        val type: Type = object : TypeToken<ArrayList<Favorites?>?>() {}.type
+    fun stringToListFavoritesEntry(catalog: String): ArrayList<Favorite> {
+        val type: Type = object : TypeToken<ArrayList<Favorite?>?>() {}.type
         return Gson().fromJson(catalog, type)
     }
 
     @TypeConverter
-    fun listFavoritesEntryToString(list: ArrayList<Favorites?>?): String? {
-        val type = object : TypeToken<ArrayList<Favorites?>?>() {}.type
+    fun listFavoritesEntryToString(list: ArrayList<Favorite?>?): String? {
+        val type = object : TypeToken<ArrayList<Favorite?>?>() {}.type
         return Gson().toJson(list, type)
     }
 }
