@@ -106,7 +106,7 @@ class FavoritesViewModel @Inject constructor(
         }.launchIn(viewModelScope)
     }
 
-    fun deleteFavoriteFromDB(id: Int) {
+    fun deleteFavoriteFromDB(id: String) {
         _deleteFavoriteDbLiveData.value = DeleteFavoriteFromDBState(isLoading = true)
         deleteFavoriteFromDBUseCase.invoke(id).onEach { result ->
             when (result) {

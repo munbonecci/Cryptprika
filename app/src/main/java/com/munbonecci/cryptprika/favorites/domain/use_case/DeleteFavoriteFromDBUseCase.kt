@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class DeleteFavoriteFromDBUseCase @Inject constructor(private val favoritesRepository: FavoritesRepository) {
-    operator fun invoke(id: Int): Flow<Resource<Unit>> = flow {
+    operator fun invoke(id: String): Flow<Resource<Unit>> = flow {
         emit(favoritesRepository.deleteFavoriteFromDB(id))
     }
 }

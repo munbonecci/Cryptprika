@@ -18,6 +18,8 @@ import com.munbonecci.cryptprika.common.Constants.COIN_LOGO_BASE_URL
 import com.munbonecci.cryptprika.common.Constants.LOGO_PNG
 import com.munbonecci.cryptprika.common.Error
 import com.munbonecci.cryptprika.common.formatAsCurrency
+import com.munbonecci.cryptprika.common.getCurrentDate
+import com.munbonecci.cryptprika.database.favorites.Favorite
 import com.munbonecci.cryptprika.databinding.FragmentPaprikaDetailBinding
 import com.munbonecci.cryptprika.favorites.presentation.FavoritesViewModel
 import com.munbonecci.cryptprika.paprika_detail.domain.model.CoinDetail
@@ -36,6 +38,7 @@ class PaprikaDetailFragment : Fragment() {
     private val binding get() = _binding!!
 
     var coinId = ""
+    private var isFavoriteAdded = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -61,6 +64,7 @@ class PaprikaDetailFragment : Fragment() {
             state.coin?.let { coin ->
                 setCoinDetail(coin)
                 getFavoriteFromDataBase(coinId)
+                onFavoriteIconPressed(coin)
             }
             state.error?.let { error ->
                 setCoinError(error)
@@ -141,13 +145,8 @@ class PaprikaDetailFragment : Fragment() {
     private fun getFavoriteFromDataBase(coinId: String) {
         favoritesViewModel.getFavoriteDb(coinId)
         favoritesViewModel.getFavoriteDbLiveData.observe(viewLifecycleOwner) { state ->
-            state.getFavorite?.let { favorite ->
-                setFavoriteTextAndIcon(favorite.isFavoriteAdded)
-            }
-            state.error?.let { error ->
-                setFavoriteTextAndIcon(false)
-                Log.e("Error: ", error.message ?: "")
-            }
+            isFavoriteAdded = state.getFavorite.isFavoriteAdded
+            setFavoriteTextAndIcon(isFavoriteAdded)
         }
     }
 
@@ -172,6 +171,44 @@ class PaprikaDetailFragment : Fragment() {
             binding.favoriteButton.text = requireActivity().getString(R.string.add_favorite_text)
         }
         binding.favoriteButton.iconTint = colorStateList
+    }
+
+    private fun onFavoriteIconPressed(coin: CoinDetail) {
+        binding.favoriteButton.setOnClickListener {
+            if (isFavoriteAdded) {
+                favoritesViewModel.deleteFavoriteFromDB(coinId)
+                favoritesViewModel.deleteFavoriteDbLiveData.observe(viewLifecycleOwner){ state ->
+                    setFavoriteTextAndIcon(false)
+                    isFavoriteAdded = false
+                    state.error?.let {
+                        Log.e("Error: ", it.message ?: "")
+                    }
+                }
+            } else {
+                favoritesViewModel.insertFavoriteIntoDB(
+                    Favorite(
+                        id = coinId,
+                        image = coin.symbol,
+                        name = coin.name,
+                        creationDate = getCurrentDate(),
+                        modificationDate = getCurrentDate(),
+                        isFavoriteAdded = true
+                    )
+                )
+                favoritesViewModel.insertFavoriteIntoDbLiveData.observe(viewLifecycleOwner) { state ->
+                    state.isInserted.let { isFavoriteAdded ->
+                        setFavoriteTextAndIcon(isFavoriteAdded)
+                        this.isFavoriteAdded = isFavoriteAdded
+                        Log.d("isAdded: ", isFavoriteAdded.toString())
+                    }
+                    state.error?.let {
+                        Log.e("Error: ", it.message ?: "")
+                        setFavoriteTextAndIcon(false)
+                        isFavoriteAdded = false
+                    }
+                }
+            }
+        }
     }
 
     override fun onDestroyView() {

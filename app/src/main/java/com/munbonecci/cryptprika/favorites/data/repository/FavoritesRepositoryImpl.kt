@@ -30,7 +30,7 @@ class FavoritesRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun deleteFavoriteFromDB(id: Int): Resource<Unit> {
+    override suspend fun deleteFavoriteFromDB(id: String): Resource<Unit> {
         return responseHandler {
             favoritesDatabase.deleteFavorite(id)
         }
