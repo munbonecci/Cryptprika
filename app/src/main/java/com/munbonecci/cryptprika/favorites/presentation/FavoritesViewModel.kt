@@ -58,7 +58,8 @@ class FavoritesViewModel @Inject constructor(
                     _getFavoriteDbLiveData.postValue(
                         GetFavoriteFromDBState(
                             isLoading = false,
-                            getFavorite = result.value?.get(id.toIntOrNull() ?: 0)
+                            getFavorite = result.value?.getOrNull(id.toIntOrNull() ?: 0)
+                                ?: Favorites()
                         )
                     )
                 }

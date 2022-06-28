@@ -1,6 +1,7 @@
 package com.munbonecci.cryptprika.paprika_detail.presentation.paprika_detail
 
 import android.annotation.SuppressLint
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -18,6 +19,7 @@ import com.munbonecci.cryptprika.common.Constants.LOGO_PNG
 import com.munbonecci.cryptprika.common.Error
 import com.munbonecci.cryptprika.common.formatAsCurrency
 import com.munbonecci.cryptprika.databinding.FragmentPaprikaDetailBinding
+import com.munbonecci.cryptprika.favorites.presentation.FavoritesViewModel
 import com.munbonecci.cryptprika.paprika_detail.domain.model.CoinDetail
 import com.munbonecci.cryptprika.ticker_detail.domain.model.Ticker
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,6 +31,7 @@ import dagger.hilt.android.WithFragmentBindings
 class PaprikaDetailFragment : Fragment() {
 
     private val paprikaDetailViewModel: PaprikaDetailViewModel by activityViewModels()
+    private val favoritesViewModel: FavoritesViewModel by activityViewModels()
     private var _binding: FragmentPaprikaDetailBinding? = null
     private val binding get() = _binding!!
 
@@ -57,6 +60,7 @@ class PaprikaDetailFragment : Fragment() {
         paprikaDetailViewModel.getCoinDetail.observe(viewLifecycleOwner) { state ->
             state.coin?.let { coin ->
                 setCoinDetail(coin)
+                getFavoriteFromDataBase(coinId)
             }
             state.error?.let { error ->
                 setCoinError(error)
@@ -114,13 +118,13 @@ class PaprikaDetailFragment : Fragment() {
                     ticker.percentChange1h
                 )
             )
-            percentChange24hText.text =String.format(
+            percentChange24hText.text = String.format(
                 requireActivity().getString(
                     R.string.percentage_change_24h,
                     ticker.percentChange24h
                 )
             )
-            percentChange7DText.text =String.format(
+            percentChange7DText.text = String.format(
                 requireActivity().getString(
                     R.string.percentage_change_7d,
                     ticker.percentChange7d
@@ -132,6 +136,40 @@ class PaprikaDetailFragment : Fragment() {
     private fun setTickerError(error: Error) {
         Log.d("ticker_error: ", error.message ?: "")
         binding.includedTickerDetailLayout.root.visibility = View.GONE
+    }
+
+    private fun getFavoriteFromDataBase(coinId: String) {
+        favoritesViewModel.getFavoriteDb(coinId)
+        favoritesViewModel.getFavoriteDbLiveData.observe(viewLifecycleOwner) { state ->
+            state.getFavorite?.let { favorite ->
+                setFavoriteIcon(favorite.isFavoriteAdded)
+            }
+            state.error?.let { error ->
+                setFavoriteIcon(false)
+                Log.e("Error: ", error.message ?: "")
+            }
+        }
+    }
+
+    private fun setFavoriteIcon(favoriteAdded: Boolean) {
+        val colorInt = ContextCompat.getColor(requireActivity(), R.color.purple_500)
+        val colorStateList = ColorStateList.valueOf(colorInt)
+        if (favoriteAdded) {
+            binding.favoriteButton.setCompoundDrawablesWithIntrinsicBounds(
+                0,
+                R.drawable.ic_favorite_black_24,
+                0,
+                0
+            )
+        } else {
+            binding.favoriteButton.setCompoundDrawablesWithIntrinsicBounds(
+                0,
+                R.drawable.ic_favorite_border_black_24,
+                0,
+                0
+            )
+        }
+        binding.favoriteButton.iconTint = colorStateList
     }
 
     override fun onDestroyView() {
