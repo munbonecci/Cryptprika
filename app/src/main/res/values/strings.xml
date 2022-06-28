@@ -8,4 +8,6 @@
     <string name="percentage_change_1h">1h: %1$s</string>
     <string name="percentage_change_24h">24h: %1$s</string>
     <string name="percentage_change_7d">7d: %1$s</string>
+    <string name="add_favorite_text">Add to\n favorites</string>
+    <string name="remove_favorite_text">Remove from\n favorites</string>
 </resources>

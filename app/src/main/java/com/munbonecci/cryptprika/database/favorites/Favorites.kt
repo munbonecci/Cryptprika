@@ -10,6 +10,7 @@ data class Favorites(
                      var name: String = "",
                      var creationDate: String = "",
                      var modificationDate: String = "",
+                     var isFavoriteAdded: Boolean = false,
                      @PrimaryKey(autoGenerate = true)
                      var uuid: Int = 0
 )
