@@ -2,6 +2,7 @@ package com.munbonecci.cryptprika.paprika_list.presentation.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -49,7 +50,7 @@ class PaprikaListAdapter(private val clickListener: OnClickListener) :
             binding.coinNameText.text = "${item.rank} - ${item.name} (${item.symbol})"
             binding.coinImageView.load("$COIN_LOGO_BASE_URL${item.id}$LOGO_PNG")
             binding.coinChartView.load("$CHART_BASE_URL${item.id}$CHART_7_DAYS")
-
+            binding.favoriteButton.visibility = View.GONE
             itemView.setOnClickListener {
                 clickListener.onItemClick(item, position)
             }

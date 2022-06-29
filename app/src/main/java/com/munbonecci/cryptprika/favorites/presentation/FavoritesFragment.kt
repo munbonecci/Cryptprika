@@ -11,10 +11,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import com.munbonecci.cryptprika.R
+import com.munbonecci.cryptprika.common.ItemOffsetDecoration
 import com.munbonecci.cryptprika.database.favorites.Favorite
 import com.munbonecci.cryptprika.databinding.FragmentFavoritesBinding
 import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.WithFragmentBindings
+
 
 @AndroidEntryPoint
 @WithFragmentBindings
@@ -52,8 +54,9 @@ class FavoritesFragment : Fragment() {
 
         binding.favoritesRecycler.apply {
             adapter = favoritesAdapter
-            layoutManager = GridLayoutManager(this.context, 2)
+            layoutManager = GridLayoutManager(this.context, 3)
             itemAnimator = DefaultItemAnimator()
+            addItemDecoration(ItemOffsetDecoration(3, 5, true))
         }
     }
 
@@ -68,7 +71,7 @@ class FavoritesFragment : Fragment() {
                 if (favorites.isNotEmpty()) {
                     hideNotFoundAnimation()
                     binding.favoritesRecycler.visibility = View.VISIBLE
-                    favoritesAdapter.submitList(state.getFavorites)
+                    favoritesAdapter.submitList(favorites.sortedBy { it.name })
                 } else {
                     binding.favoritesRecycler.visibility = View.GONE
                     showNotFoundAnimation()
