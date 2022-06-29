@@ -19,6 +19,7 @@ import com.munbonecci.cryptprika.common.Constants.LOGO_PNG
 import com.munbonecci.cryptprika.common.Error
 import com.munbonecci.cryptprika.common.formatAsCurrency
 import com.munbonecci.cryptprika.common.getCurrentDate
+import com.munbonecci.cryptprika.common.ui.modal.GenericCustomModal
 import com.munbonecci.cryptprika.database.favorites.Favorite
 import com.munbonecci.cryptprika.databinding.FragmentPaprikaDetailBinding
 import com.munbonecci.cryptprika.favorites.presentation.FavoritesViewModel
@@ -36,6 +37,7 @@ class PaprikaDetailFragment : Fragment() {
     private val favoritesViewModel: FavoritesViewModel by activityViewModels()
     private var _binding: FragmentPaprikaDetailBinding? = null
     private val binding get() = _binding!!
+    private var errorModal: GenericCustomModal? = null
 
     var coinId = ""
     private var isFavoriteAdded = false
@@ -94,7 +96,25 @@ class PaprikaDetailFragment : Fragment() {
     }
 
     private fun setCoinError(error: Error) {
+        error.message?.toInt()?.let { showDialogError(R.string.unexpected_error_message, it) }
+            ?: run { showDialogError(R.string.unexpected_error_message, R.string.generic_error) }
+    }
 
+    private fun showDialogError(tittle: Int, message: Int) {
+        errorModal = GenericCustomModal(tittle, message)
+        errorModal?.show(childFragmentManager, "Error")
+
+        errorModal?.onBackToHomeButton = {
+            errorModal?.dismiss()
+        }
+
+        errorModal?.onCloseButton = {
+            errorModal?.dismiss()
+        }
+
+        errorModal?.onDismissDialog = {
+            errorModal?.dismiss()
+        }
     }
 
     private fun getTickerDetails() {
@@ -177,7 +197,7 @@ class PaprikaDetailFragment : Fragment() {
         binding.favoriteButton.setOnClickListener {
             if (isFavoriteAdded) {
                 favoritesViewModel.deleteFavoriteFromDB(coinId)
-                favoritesViewModel.deleteFavoriteDbLiveData.observe(viewLifecycleOwner){ state ->
+                favoritesViewModel.deleteFavoriteDbLiveData.observe(viewLifecycleOwner) { state ->
                     setFavoriteTextAndIcon(false)
                     isFavoriteAdded = false
                     state.error?.let {

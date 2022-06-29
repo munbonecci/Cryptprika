@@ -3,8 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/ic_close.xml" value="0.11" />
+        <entry key="app/src/main/res/drawable/ic_error_circle.xml" value="0.11" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.16979166666666667" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.23097826086956522" />
+        <entry key="app/src/main/res/layout/fragment_modal_error.xml" value="0.2078804347826087" />
         <entry key="app/src/main/res/layout/fragment_paprika_detail.xml" value="0.23097826086956522" />
         <entry key="app/src/main/res/layout/layout_paprika_item.xml" value="0.23097826086956522" />
         <entry key="app/src/main/res/layout/layout_ticker_detail.xml" value="0.23097826086956522" />

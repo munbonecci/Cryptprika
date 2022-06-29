@@ -10,4 +10,5 @@
     <string name="percentage_change_7d">7d: %1$s</string>
     <string name="add_favorite_text">Add to\n favorite</string>
     <string name="remove_favorite_text">Remove from\n favorite</string>
+    <string name="text_accept">Accept</string>
 </resources>
