@@ -2,11 +2,12 @@ package com.munbonecci.cryptprika.paprika_list.presentation.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.*
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import coil.load
 import com.munbonecci.cryptprika.common.Constants.CHART_7_DAYS
 import com.munbonecci.cryptprika.common.Constants.CHART_BASE_URL
@@ -20,7 +21,7 @@ class PaprikaListAdapter(private val clickListener: OnClickListener) :
 
     class TaskDiffCallBack : DiffUtil.ItemCallback<Coin>() {
         override fun areItemsTheSame(oldItem: Coin, newItem: Coin): Boolean {
-            return oldItem.id == newItem.id;
+            return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(oldItem: Coin, newItem: Coin): Boolean {
@@ -49,7 +50,7 @@ class PaprikaListAdapter(private val clickListener: OnClickListener) :
             binding.coinNameText.text = "${item.rank} - ${item.name} (${item.symbol})"
             binding.coinImageView.load("$COIN_LOGO_BASE_URL${item.id}$LOGO_PNG")
             binding.coinChartView.load("$CHART_BASE_URL${item.id}$CHART_7_DAYS")
-
+            binding.favoriteButton.visibility = View.GONE
             itemView.setOnClickListener {
                 clickListener.onItemClick(item, position)
             }

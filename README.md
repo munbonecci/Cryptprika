@@ -30,4 +30,6 @@ This project is maintained by:
 *Dagger hilt
 *Coroutines + flow
 *Retrofit
+*Room with Cypher
+*Lottie animations
 *CoinPaprika [CoinPaprika](https://api.coinpaprika.com/)
