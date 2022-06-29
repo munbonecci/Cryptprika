@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.*
+import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import coil.load
 import com.munbonecci.cryptprika.common.Constants.CHART_7_DAYS
 import com.munbonecci.cryptprika.common.Constants.CHART_BASE_URL
@@ -20,7 +20,7 @@ class PaprikaListAdapter(private val clickListener: OnClickListener) :
 
     class TaskDiffCallBack : DiffUtil.ItemCallback<Coin>() {
         override fun areItemsTheSame(oldItem: Coin, newItem: Coin): Boolean {
-            return oldItem.id == newItem.id;
+            return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(oldItem: Coin, newItem: Coin): Boolean {

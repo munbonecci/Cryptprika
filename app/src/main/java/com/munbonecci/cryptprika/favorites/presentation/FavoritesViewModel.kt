@@ -73,20 +73,27 @@ class FavoritesViewModel @Inject constructor(
                         )
                     )
                 }
-                else -> {}
+                else -> {
+                    _getFavoriteDbLiveData.postValue(
+                        GetFavoriteFromDBState(
+                            isLoading = false,
+                            getFavorite = Favorite()
+                        )
+                    )
+                }
             }
         }.launchIn(viewModelScope)
     }
 
     fun getFavoritesDb() {
-        _getFavoritesDbLiveData.value = GetFavoritesFromDBState(isLoading = true)
+        _getFavoritesDbLiveData.value = GetFavoritesFromDBState(isLoading = true, null)
         getFavoritesFromDBUseCase.invoke().onEach { result ->
             when (result) {
                 is Resource.Success -> {
                     _getFavoritesDbLiveData.postValue(
                         GetFavoritesFromDBState(
                             isLoading = false,
-                            getFavorites = result.value ?: emptyList()
+                            getFavorites = result.value
                         )
                     )
                 }
@@ -94,6 +101,7 @@ class FavoritesViewModel @Inject constructor(
                     _getFavoritesDbLiveData.postValue(
                         GetFavoritesFromDBState(
                             isLoading = false,
+                            getFavorites = null,
                             error = Error(
                                 resourceId = R.string.unexpected_error_message,
                                 message = result.message
@@ -101,7 +109,14 @@ class FavoritesViewModel @Inject constructor(
                         )
                     )
                 }
-                else -> {}
+                else -> {
+                    _getFavoritesDbLiveData.postValue(
+                        GetFavoritesFromDBState(
+                            isLoading = false,
+                            getFavorites = null
+                        )
+                    )
+                }
             }
         }.launchIn(viewModelScope)
     }
@@ -130,7 +145,14 @@ class FavoritesViewModel @Inject constructor(
                         )
                     )
                 }
-                else -> {}
+                else -> {
+                    _deleteFavoriteDbLiveData.postValue(
+                        DeleteFavoriteFromDBState(
+                            isLoading = false,
+                            isDeleted = false
+                        )
+                    )
+                }
             }
         }.launchIn(viewModelScope)
     }
@@ -159,10 +181,16 @@ class FavoritesViewModel @Inject constructor(
                         )
                     )
                 }
-                else -> {}
+                else -> {
+                    _insertFavoriteIntoDbLiveData.postValue(
+                        InsertFavoriteIntoDBState(
+                            isLoading = false,
+                            isInserted = false
+                        )
+                    )
+                }
             }
         }.launchIn(viewModelScope)
     }
-
 
 }

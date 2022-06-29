@@ -209,7 +209,7 @@ class PaprikaDetailFragment : Fragment() {
                     Favorite(
                         id = coinId,
                         image = coin.symbol,
-                        name = coin.name,
+                        name = "${coin.rank} - ${coin.name} (${coin.symbol})",
                         creationDate = getCurrentDate(),
                         modificationDate = getCurrentDate(),
                         isFavoriteAdded = true

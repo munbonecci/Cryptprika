@@ -5,6 +5,6 @@ import com.munbonecci.cryptprika.database.favorites.Favorite
 
 data class GetFavoritesFromDBState(
     var isLoading: Boolean = false,
-    var getFavorites: List<Favorite> = emptyList(),
+    var getFavorites: List<Favorite>?,
     val error: Error? = null,
 )
