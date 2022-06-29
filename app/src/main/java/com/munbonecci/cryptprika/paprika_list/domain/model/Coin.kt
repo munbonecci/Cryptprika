@@ -8,4 +8,5 @@ data class Coin(
     val rank: Int,
     val symbol: String,
     val type: String,
+    val isFavoriteSelected: Boolean
 )

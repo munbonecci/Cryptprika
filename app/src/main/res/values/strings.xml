@@ -1,10 +1,15 @@
 <resources>
     <string name="app_name">Cryptprika</string>
     <string name="title_home">Home</string>
+    <string name="title_favorites">Favorites</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_paprika_detail">Detail</string>
     <string name="percentage_change_1h">1h: %1$s</string>
     <string name="percentage_change_24h">24h: %1$s</string>
     <string name="percentage_change_7d">7d: %1$s</string>
+    <string name="add_favorite_text">Add to\n favorite</string>
+    <string name="remove_favorite_text">Remove from\n favorite</string>
+    <string name="text_accept">Accept</string>
+    <string name="no_favorites_found">No favorites\n found</string>
 </resources>

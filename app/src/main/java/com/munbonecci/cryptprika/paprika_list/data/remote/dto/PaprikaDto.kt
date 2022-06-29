@@ -29,5 +29,6 @@ fun PaprikaDto.toCoin(): Coin {
         rank = rank,
         symbol = symbol,
         type = type,
+        isFavoriteSelected = false
     )
 }
