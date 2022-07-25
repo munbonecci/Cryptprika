@@ -43,6 +43,7 @@ This App is based on the MVVM architecture and the Repository pattern and it has
     - [Navigation Component](https://developer.android.com/guide/navigation/navigation-getting-started) - Handling and manage the navigation in the app.
     - [Room Persistence](https://developer.android.com/jetpack/androidx/releases/room) - Constructs Database by providing an abstraction layer over SQLite to allow fluent database access.
 - Lottie animation
+- [Mockito-Kotlin](https://github.com/mockito/mockito-kotlin#mockito-kotlin) - Library for unit testing based in kotlin.
 
 
 ## How I run the app?

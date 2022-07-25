@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorMainBackground"
-    tools:context=".paprika_detail.presentation.paprika_detail.PaprikaDetailFragment">
+    tools:context=".features.paprika_detail.presentation.paprika_detail.PaprikaDetailFragment">
 
     <ScrollView
         android:id="@+id/scrollView"

@@ -3,8 +3,8 @@ package com.munbonecci.cryptprika.di
 import com.munbonecci.cryptprika.common.ResponseHandler
 import com.munbonecci.cryptprika.database.cypher.DataBaseManager
 import com.munbonecci.cryptprika.database.favorites.FavoritesDao
-import com.munbonecci.cryptprika.favorites.data.repository.FavoritesRepositoryImpl
-import com.munbonecci.cryptprika.favorites.domain.repository.FavoritesRepository
+import com.munbonecci.cryptprika.features.favorites.data.repository.FavoritesRepositoryImpl
+import com.munbonecci.cryptprika.features.favorites.domain.repository.FavoritesRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
