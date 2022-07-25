@@ -1,8 +1,8 @@
 package com.munbonecci.cryptprika.di
 
-import com.munbonecci.cryptprika.ticker_detail.data.repository.TickerDetailApi
-import com.munbonecci.cryptprika.ticker_detail.data.repository.TickerDetailRepositoryImpl
-import com.munbonecci.cryptprika.ticker_detail.domain.repository.TickerDetailRepository
+import com.munbonecci.cryptprika.features.ticker_detail.data.repository.TickerDetailApi
+import com.munbonecci.cryptprika.features.ticker_detail.data.repository.TickerDetailRepositoryImpl
+import com.munbonecci.cryptprika.features.ticker_detail.domain.repository.TickerDetailRepository
 import dagger.Binds
 import dagger.Module
 import dagger.Provides

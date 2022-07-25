@@ -1,8 +1,8 @@
 package com.munbonecci.cryptprika.di
 
-import com.munbonecci.cryptprika.paprika_detail.data.repository.PaprikaDetailApi
-import com.munbonecci.cryptprika.paprika_detail.data.repository.PaprikaDetailRepositoryImpl
-import com.munbonecci.cryptprika.paprika_detail.domain.repository.PaprikaDetailRepository
+import com.munbonecci.cryptprika.features.paprika_detail.data.repository.PaprikaDetailApi
+import com.munbonecci.cryptprika.features.paprika_detail.data.repository.PaprikaDetailRepositoryImpl
+import com.munbonecci.cryptprika.features.paprika_detail.domain.repository.PaprikaDetailRepository
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
