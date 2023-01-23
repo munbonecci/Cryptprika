@@ -3,6 +3,8 @@
 <p align="center">
 Android crypto app This app was created to learn more about Clean architecture, the use of coil for
 image consumption, among other things.
+
+![App Screens](app/app-screens.png)
 </p>
 
 ## Installation
